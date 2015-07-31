@@ -18,34 +18,27 @@ compinit
 #   red, blue, green, cyan, yellow, magenta, black & white
 #
 # for more info see:
-#   http://stackoverflow.com/questions/689765/how-can-i-change-the-color-of-my-prompt
+#   http://stackoverflow.com/questions/689765/how-can-i-change-the-color
 autoload -U colors && colors
 
 PROMPT="%{$fg[green]%}%n@%m%{$reset_color%} %# "
 RPROMPT="%~"
 
-# lets try to get different cursors showing depending on whether we're
-# in normal or insert mode on the command line (ie when using zsh's vi mode)
 
-#zle-keymap-select () {
-#  case $KEYMAP in
-#    vicmd) print -rn -- $terminfo[cvvis];; # block cursor
-#    viins|main) print -rn -- $terminfo[cnorm];; # less visible cursor
-#  esac
-#}
-
+# use a bar cursor when command line is vi insert mode; block cursor otherwise
+# assumes $TERM = xterm, which is the case for cygwin's mintty
 function zle-line-init zle-keymap-select {
   case $KEYMAP in
-    vicmd) RPS1="-- NORMAL --";;
-    main|viins) RPS1="-- INSERT --";;
+    vicmd) echo -en "\x1b[\x32 q";;       # bar cursor
+    main|viins) echo -en "\x1b[\x36 q";;  # block cursor
   esac
-
-  RPS2=$RPS1
-  zle reset-prompt
 }
 
+# use the above function as the implementation for these two zle widgets
+# yes, it's a little confusing because the function has the same name as 
+# the widgets.
 zle -N zle-line-init
-#zle -N zle-keymap-select
+zle -N zle-keymap-select
 
 
 
