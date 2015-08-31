@@ -11,3 +11,12 @@ let &t_te.="\e[0 q"
 
 " comments are a hard to read dark blue colour. fix this:
 hi Comment ctermfg=LightBlue
+
+noremap \w :wa<CR>
+noremap <space> <C-D>
+noremap <backspace> <C-U>
+
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
