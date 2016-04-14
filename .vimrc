@@ -16,6 +16,12 @@ noremap \w :wa<CR>
 noremap <space> <C-D>
 noremap <backspace> <C-U>
 
+
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+"   see here for an explanation of how this hack actually works:
+"   http://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
+cmap w!! w !sudo tee > /dev/null %
+
 set hlsearch
 set incsearch
 set ignorecase
