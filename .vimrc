@@ -16,6 +16,10 @@ noremap \w :wa<CR>
 noremap <space> <C-D>
 noremap <backspace> <C-U>
 
+" find visually selected text with //
+"   it messes with the " register, but it's simple enough
+vnoremap // y/<C-R>"<CR>
+
 set hlsearch
 set incsearch
 set ignorecase
